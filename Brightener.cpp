@@ -1,25 +1,34 @@
 #include "Brightener.h"
 #include "Image.h"
 
-ImageBrightener::ImageBrightener(Image& inputImage) : m_inputImage(inputImage) {
+const int ImageBrightener::BRIGHTNESS_INCREMENT = 25;
+const int ImageBrightener::MAX_BRIGHTNESS = 255;
+
+ImageBrightener::ImageBrightener(Image& inputImage) 
+	: m_inputImage(inputImage)
+	, m_attenuatedPixelCount(0) {
 }
 
 int ImageBrightener::BrightenWholeImage() {
-	int attenuatedPixelCount = 0;
 	for (int x = 0; x < m_inputImage.GetRows(); x++) {
 		for (int y = 0; y < m_inputImage.GetColumns(); y++) {
-			if (m_inputImage.GetPixel(x, y) > (255 - 25)) {
-				++attenuatedPixelCount;
-				m_inputImage.SetPixel(x, y, 255);
+			int thresholdBrightness = ImageBrightener::MAX_BRIGHTNESS - ImageBrightener::BRIGHTNESS_INCREMENT;
+			if (m_inputImage.GetPixel(x, y) > thresholdBrightness) {
+				++m_attenuatedPixelCount;
+				m_inputImage.SetPixel(x, y, ImageBrightener::MAX_BRIGHTNESS);
 			}
 			else {
-				m_inputImage.SetPixel(x, y, m_inputImage.GetPixel(x, y) + 25);
+				m_inputImage.SetPixel(x, y, m_inputImage.GetPixel(x, y) + ImageBrightener::BRIGHTNESS_INCREMENT);
 			}
 		}
 	}
-	return attenuatedPixelCount;
+	return m_attenuatedPixelCount;
 }
 
 Image ImageBrightener::GetImage() {
 	return m_inputImage;
+}
+
+int ImageBrightener::GetAttenuatedPixelCount() const {
+	return m_attenuatedPixelCount;
 }
