@@ -18,12 +18,18 @@
     <ClCompile Include="pass-an-image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="brightener.cpp">
+    <ClCompile Include="Brightener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="brightener.h">
+    <ClInclude Include="Brightener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
